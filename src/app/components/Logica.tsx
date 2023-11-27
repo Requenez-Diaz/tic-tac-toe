@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Tablero from "./Tablero";
+import GameOver from "./GameOver";
 
 interface LogicaProps {}
 
@@ -77,28 +79,11 @@ const Logica = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center h-screen '>
-      <div className='grid grid-cols-3  p-2 border'>
-        {gridData.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => handleCellClick(index)}
-            className='bg-gray-800 p-4 text-center border cursor-pointer hover:bg-gray-700'
-          >
-            {item}
-          </div>
-        ))}
-      </div>
+    <div className='flex flex-col justify-center items-center h-screen'>
+      <Tablero gridData={gridData} onCellClick={handleCellClick} />
+
       {gameOver && (
-        <div className='mt-4'>
-          <p>{empate ? "¡Empate! No hay ganadores." : `¡${winner} gana!`}</p>
-          <button
-            onClick={handleRestart}
-            className='mt-2 bg-blue-500 text-white px-4 py-2'
-          >
-            Reiniciar Juego
-          </button>
-        </div>
+        <GameOver empate={empate} winner={winner} onRestart={handleRestart} />
       )}
     </div>
   );
